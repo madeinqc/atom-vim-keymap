@@ -4,11 +4,58 @@
 // for a full listing of what's available.
 @import "ui-variables";
 
-.atom-vim-keymap {
-  text-align: center;
+.atom-vim-keymap-resizer {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  cursor: default;
+  -webkit-user-select: none;
+  min-height: 100px;
+  height: -webkit-min-content;
+  z-index: 2;
+  display: flex;
+  flex-direction: row;
 
-  img {
-    width: 100%;
-    max-width: 1033px;
+  .atom-vim-keymap-resize-handle {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 10px;
+    cursor: row-resize;
+    z-index: 3;
+    bottom: 0px;
+  }
+
+  .atom-vim-keymap {
+    min-width: 100%;
+    min-height: -webkit-min-content;
+    position: relative;
+
+    text-align: center;
+
+    display: block;
+    overflow: hidden;
+
+    // Default height
+    height: 350px;
+
+    img {
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      max-height: 100%;
+      max-width: 100%;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+}
+
+.platform-win32 {
+  .tree-view-resizer {
+    .tree-view-resize-handle {
+      cursor: ns-resize;
+    }
   }
 }
