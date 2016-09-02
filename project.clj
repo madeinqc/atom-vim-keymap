@@ -8,7 +8,8 @@
                  [org.clojure/clojurescript "1.9.225"]
                  [org.clojure/core.async "0.2.385"]
                  [org.bodil/pylon "0.3.0"]
-                 [hiccups "0.3.0"]]
+                 [hiccups "0.3.0"]
+                 [prismatic/dommy "1.1.0"]]
 
   :source-paths ["src/cljs"]
   :profiles {:dev {:source-paths ["src/dev"]

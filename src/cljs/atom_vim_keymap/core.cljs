@@ -2,7 +2,8 @@
   (:require-macros [hiccups.core :as hiccups :refer [html]])
   (:require [cljs.nodejs :as node]
             [clojure.string :as str]
-            [atom-vim-keymap.helper :refer [html-string->dom]]))
+            [atom-vim-keymap.helper :refer [html-string->dom]]
+            [dommy.core :as dommy :refer-macros [sel1]]))
 
 ;; reference to atom shell API
 (def ashell (node/require "atom"))
@@ -40,14 +41,46 @@
 (defn serialize []
   nil)
 
+(defn resize-to-fit-content!
+  [event]
+  (let [item (.getItem @modal-panel)
+        element (sel1 :.atom-vim-keymap)]
+    (set! (.. element -style -height) "300px")))
+
+(defn resize-view!
+  [event]
+  (let [y-pos (.-clientY event)
+        item (.getItem @modal-panel)
+        element (sel1 :.atom-vim-keymap)]
+    (set! (.. element -style -height) (str y-pos "px"))))
+
+(defn resize-stopped!
+  []
+  (dommy/unlisten! js/document :mousemove resize-view!)
+  (dommy/unlisten! js/document :mouseup resize-stopped!))
+
+(defn resize-started!
+  []
+  (dommy/listen! js/document :mousemove resize-view!)
+  (dommy/listen! js/document :mouseup resize-stopped!))
+
 (defn activate [state]
 
-  (reset! modal-panel
-    (.addHeaderPanel workspace
-      #js {:item (html-string->dom
-                  (html [:div.atom-vim-keymap
-                          [:img {:src "atom://atom-vim-keymap/assets/keyboard-layout.jpg"}]]))
-           :visible false}))
+  (let [item (html-string->dom
+                  (html
+                    [:div.atom-vim-keymap-resizer
+                      [:div.atom-vim-keymap
+                        [:img {:src "atom://atom-vim-keymap/assets/keyboard-layout.jpg"}]]
+                      [:div.atom-vim-keymap-resize-handle]]))
+        resize-handle (sel1 item :.atom-vim-keymap-resize-handle)]
+
+    (dommy/listen! resize-handle :dblclick resize-to-fit-content!)
+    (dommy/listen! resize-handle :mousedown resize-started!)
+
+    (reset! modal-panel
+      (.addHeaderPanel workspace
+        #js {:item item
+             :visible false})))
 
   (.add subscriptions
     (.add commands "atom-workspace" "atom-vim-keymap:toggle" toggle)))
