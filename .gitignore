@@ -1,0 +1,15 @@
+/resources/public/js/compiled/**
+pom.xml
+*jar
+plugin/lib
+plugin/node_modules
+/classes/
+/out/
+/target/
+.lein-deps-sum
+.lein-repl-history
+.lein-plugins/
+.repl
+.nrepl-port
+
+.DS_Store
