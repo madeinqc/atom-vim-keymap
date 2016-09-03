@@ -1,0 +1,1 @@
+cljs.core.enable_console_print_BANG_();
