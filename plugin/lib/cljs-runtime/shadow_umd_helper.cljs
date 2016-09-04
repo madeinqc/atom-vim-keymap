@@ -1,0 +1,1 @@
+[(ns shadow-umd-helper (:require [atom-vim-keymap.core])) (clojure.core/defn get-exports [] (cljs.core/js-obj "activate" atom-vim-keymap.core/activate "serialize" atom-vim-keymap.core/serialize "deactivate" atom-vim-keymap.core/deactivate))]
