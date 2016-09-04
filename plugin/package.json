@@ -1,10 +1,12 @@
 {
   "name": "atom-vim-keymap",
   "main": "./lib/atom-vim-keymap",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A vim keymap for the one time you forgot a command.",
   "keywords": [
-    "vim", "shortcut", "keymap"
+    "vim",
+    "shortcut",
+    "keymap"
   ],
   "repository": "https://github.com/madeinqc/atom-vim-keymap",
   "bugs": {
@@ -14,6 +16,5 @@
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
